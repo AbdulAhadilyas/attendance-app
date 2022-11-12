@@ -1,17 +1,18 @@
 import './App.css';
 import React from 'react';
 import Form from './component/Form/form';
-import { useState , useEffect} from "react"
-import { getAuth,signInWithEmailAndPassword ,signOut,onAuthStateChanged} from "firebase/auth";
+import { useState, useEffect } from "react"
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import app from "./fireBaseCon/fireBase"
-import LoginRouters from "./Routers/loginRouter"
+import Dashbord from './pages/dashboard/Dashbord';
+import { Link, Route, Router } from 'react-router-dom';
 
 function App() {
   const [Email, setEmail] = useState("");
   const [Pass, setPass] = useState("");
-const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
 
-  const submitHandler = (e) =>{
+  const submitHandler = (e) => {
     e.preventDefault()
     const auth = getAuth(app);
     signInWithEmailAndPassword(auth, Email, Pass)
@@ -22,15 +23,15 @@ const [isLogin, setIsLogin] = useState(false);
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log( error.message)
+        console.log(error.message)
       });
-      console.log(Email)
-      console.log(Pass)
+    console.log(Email)
+    console.log(Pass)
   }
-  
+
   useEffect(() => {
     const auth = getAuth();
-    const unSubscribe =onAuthStateChanged(auth, (user) => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
         setIsLogin(true)
@@ -39,7 +40,7 @@ const [isLogin, setIsLogin] = useState(false);
         setIsLogin(false)
       }
     });
-    return ()=>{
+    return () => {
       unSubscribe()
       console.log("clean up")
     }
@@ -47,16 +48,19 @@ const [isLogin, setIsLogin] = useState(false);
 
   return (
     <div>
-      {isLogin?<LoginRouters/>
-      :<Form
-      getEmail={(e)=>setEmail(e.target.value)}
-      getPass={(e)=>setPass(e.target.value)}
-      submitForm={submitHandler}
-      />
+      {isLogin ? <Dashbord />
+        : <Form
+          getEmail={(e) => setEmail(e.target.value)}
+          getPass={(e) => setPass(e.target.value)}
+          submitForm={submitHandler}
+        />
       }
     </div>
-      
+    
+
+    
   );
+
 }
 
 export default App;

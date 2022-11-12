@@ -1,0 +1,10 @@
+aside{
+    background-color: aqua;
+    height: 100vh;
+    width: 200px;
+}
+
+
+.dash-flex{
+    display: flex;
+}
