@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { getAuth, signOut } from "firebase/auth";
+import "./dashBoard.css"
 
 const Dashbord = () => {
 
@@ -15,13 +16,12 @@ const Dashbord = () => {
             console.log("failed")
         });
     }
+    
 
     return (
-        <div>
+        <aside>
             
-            <button onClick={logOut}>logOut</button>
-        </div>
-
+        </aside>
     );
 }
 

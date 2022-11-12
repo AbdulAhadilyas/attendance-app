@@ -1,5 +1,5 @@
 import React from 'react';
-import Dashbord from '../pages/Dashbord';
+import Dashbord from '../pages/dashboard/Dashbord';
 import { Route, Routes,  } from 'react-router-dom';
 const LoginRouters = () => {
     return (
