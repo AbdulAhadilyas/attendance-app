@@ -1,13 +1,15 @@
 import './App.css';
 import React from 'react';
 import Form from './component/Form/form';
-import { useState } from "react"
-import { getAuth,signInWithEmailAndPassword ,signOut} from "firebase/auth";
+import { useState , useEffect} from "react"
+import { getAuth,signInWithEmailAndPassword ,signOut,onAuthStateChanged} from "firebase/auth";
 import app from "./fireBaseCon/fireBase"
+import LoginRouters from "./Routers/loginRouter"
 
 function App() {
   const [Email, setEmail] = useState("");
   const [Pass, setPass] = useState("");
+const [isLogin, setIsLogin] = useState(false);
 
   const submitHandler = (e) =>{
     e.preventDefault()
@@ -26,15 +28,34 @@ function App() {
       console.log(Pass)
   }
   
+  useEffect(() => {
+    const auth = getAuth();
+    const unSubscribe =onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setIsLogin(true)
+        console.log("user is login", user)
+      } else {
+        setIsLogin(false)
+      }
+    });
+    return ()=>{
+      unSubscribe()
+      console.log("clean up")
+    }
+  }, [])
+
   return (
     <div>
-      <Form
+      {isLogin?<LoginRouters/>
+      :<Form
       getEmail={(e)=>setEmail(e.target.value)}
       getPass={(e)=>setPass(e.target.value)}
       submitForm={submitHandler}
-
       />
+      }
     </div>
+      
   );
 }
 
