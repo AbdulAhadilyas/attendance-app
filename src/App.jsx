@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div>
-      {isLogin ? <Dashbord />
+      {isLogin ? <Dashbord/>
         : <Form
           getEmail={(e) => setEmail(e.target.value)}
           getPass={(e) => setPass(e.target.value)}
