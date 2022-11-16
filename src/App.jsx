@@ -4,7 +4,7 @@ import Form from './component/Form/form';
 import { useState, useEffect } from "react"
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import app from "./fireBaseCon/fireBase"
-import Dashbord from './pages/dashboard/Dashbord';
+import Dashbord from './component/dashboard/DashBoard';
 import { Link, Route, Router } from 'react-router-dom';
 
 function App() {
