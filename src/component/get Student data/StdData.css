@@ -1,0 +1,144 @@
+.search-std{
+
+    height: 100%;
+  }
+  .inputBox{
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .std-input-box > input{
+    max-width: 200px;
+    min-width: 300px;
+    font-size: 1rem;
+    line-height: 2;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(83, 82, 82);
+    color: white;
+    padding: 5px;
+    box-shadow: 0px 6px 11px -1px rgb(0 0 0 / 75%);
+  }
+  .std-btn >  button {
+    max-width: 150px;
+    min-width: 100px;
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    display: block;
+    border: 0px;
+    font-weight: 700;
+    box-shadow: 0px 0px 14px -7px #8dc63f;
+    background-image: linear-gradient(
+      45deg,
+      #8dc63f 0%,
+      #0d6db7 51%,
+      #8dc63f 100%
+    );
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  border-radius: 10px;
+  }
+  .std-btn {
+    padding-left: 20px;
+  }
+  
+  .std-btn >button:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* create id card */
+  .id-card{
+  background-color: #3d290e;
+  width: 100%;
+  height: 77.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  .id-box{
+    background-color: #f5f8ff;
+    width: 28%;
+    height: 80%;
+    border: 3px solid #0d6db7;
+  }
+  
+  .id-card-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  
+  }
+  .id-img{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 5px solid #0d6db7;
+  }
+  
+  .std-image-center{
+    width: 100%;
+    height: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .std-image >img{
+  border-radius: 20px;
+    width: 140px;
+    height: 140px;
+  }
+  .std-data{
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .std-name >h3{
+    font-size: 2rem;
+    font-family: sans-serif;
+    font-weight: 500;
+  }
+  .id-card-footer{
+  
+    height: 103px;
+  }
+  .std-roll-no{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+  
+  }
+  .id-cur{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border: 2px solid #0d6db7;
+    border-bottom: none;
+    border-radius: 7px;
+  }
+  .id-cur>span{
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    color: #0d6db7;
+    font-weight: bold;
+  }
+  .cores-name{
+    background-color: #04aa6d;
+    height: 30px;
+  }
