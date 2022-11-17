@@ -1,7 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./StudentForm.css"
 
 export default function StudentForm() {
+    const [studnets, setStudents] = useState(
+        {
+            name: "",
+            fatherName: "",
+            RollNumber: "",
+            contactNumber: "",
+            CNICNumber: "",
+            Class: "",
+        }
+    )
+    let name, value;
+    const getInput = (event) => {
+        name = event.target.name;
+        value = event.target.value;
+        setStudents({ ...studnets, [name]: value })
+    }
+    const saveData = (event) => {
+        event.preventDefault()
+        console.log(studnets)
+        setStudents({
+            name: "",
+            fatherName: "",
+            RollNumber: "",
+            contactNumber: "",
+            CNICNumber: "",
+            Class: "",
+        })
+    }
+
     return (
         <div> <div className="box">
 
@@ -11,14 +40,14 @@ export default function StudentForm() {
                 </div>
                 <div className="form-element">
                     <div className="form">
-                        <form action="">
+                        <form onSubmit={saveData}>
                             <div className="input">
                                 <div className="input-lable">
                                     <label htmlFor="name">Name</label>
                                 </div>
                                 <div className="input-center">
                                     <div className="input-center">
-                                        <input type="text" id="name" />
+                                        <input type="text" name='name' value={studnets.name} onChange={getInput} id="name" placeholder='Enter your name '/>
                                     </div>
                                 </div>
                             </div>
@@ -27,7 +56,7 @@ export default function StudentForm() {
                                     <label htmlFor="name">Father Name</label>
                                 </div>
                                 <div className="input-center">
-                                    <input type="text" id="name" />
+                                    <input type="text" name='fatherName' value={studnets.fatherName} onChange={getInput} id="name" placeholder='Enter your Father name ' />
                                 </div>
                             </div>
                             <div className="input">
@@ -35,7 +64,7 @@ export default function StudentForm() {
                                     <label htmlFor="name">Roll Number</label>
                                 </div>
                                 <div className="input-center">
-                                    <input type="text" id="name" />
+                                    <input type="text" name='RollNumber' value={studnets.RollNumber} onChange={getInput} id="name" placeholder='Enter your Roll number '/>
                                 </div>
                             </div>
                             <div className="input">
@@ -43,7 +72,7 @@ export default function StudentForm() {
                                     <label htmlFor="name">Contact Number</label>
                                 </div>
                                 <div className="input-center">
-                                    <input type="text" id="name" />
+                                    <input type="text" name='contactNumber' value={studnets.contactNumber} onChange={getInput} id="name" placeholder='Enter your Contact number ' />
                                 </div>
                             </div>
                             <div className="input">
@@ -51,18 +80,18 @@ export default function StudentForm() {
                                     <label htmlFor="name">CNIC Number</label>
                                 </div>
                                 <div className="input-center">
-                                    <input type="text" id="name" />
+                                    <input type="text" name='CNICNumber' value={studnets.CNICNumber} onChange={getInput} id="name" placeholder='Enter your CNIC Number '/>
                                 </div>
                             </div>
                             <div className="input">
                                 <div className="input-lable">
                                     <label htmlFor="name">Class</label>
                                 </div>
-                                <select name="" id="">
-                                    <option value="">Inzamama malik</option>
-                                    <option value="">Inzamama malik</option>
-                                    <option value="">Inzamama malik</option>
-                                    <option value="">Inzamama malik</option>
+                                <select name="Class" value={studnets.Class} onChange={getInput} >
+                                    <option value="Inzamama malik"> Inzamama malik</option>
+                                    <option value="Inzamama malik"> Inzamama malik</option>
+                                    <option value="Inzamama malik"> Inzamama malik</option>
+                                    <option value="Inzamama malik"> Inzamama malik</option>
                                 </select>
                             </div>
                             <div className="form-btn">
