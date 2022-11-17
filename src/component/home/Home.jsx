@@ -1,6 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "./Home.css"
+import { query, collection, onSnapshot, orderBy, getFirestore } from "firebase/firestore";
 export default function Home() {
+
+    const [studnetsData, setStudentsData] = useState([])
+
+    const db = getFirestore();
+
+    useEffect(() => {
+        let unsubscribe = null;
+        const getRealtimeData = async () => {
+            const q = query(collection(db, "Students"));
+            unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const posts = [];
+                querySnapshot.forEach((doc) => {
+                    posts.unshift({ id: doc.id, ...doc.data() });
+                });
+                setStudentsData([...posts, posts])
+            });
+        }
+        getRealtimeData();
+        
+    }, [])
+   
+    console.log("posts: ", studnetsData);
     return (
         <div>
             <div className="dashboard">
@@ -9,78 +32,25 @@ export default function Home() {
                         <h2>Students</h2>
                     </div>
                     <table id="customers">
-                        <tr>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Country</th>
-                            <th>Country</th>
-                            <th>Country</th>
-
-                        </tr>
-                        <tr>
-                            <td>Alfreds Futterkiste</td>
-                            <td>Maria Anders</td>
-                            <td>Germany</td>
-                            <td>Germany</td>
-                        </tr>
-                        <tr>
-                            <td>Berglunds snabbköp</td>
-                            <td>Christina Berglund</td>
-                            <td>Sweden</td>
-                        </tr>
-                        <tr>
-                            <td>Centro comercial Moctezuma</td>
-                            <td>Francisco Chang</td>
-                            <td>Mexico</td>
-                        </tr>
-                        <tr>
-                            <td>Ernst Handel</td>
-                            <td>Roland Mendel</td>
-                            <td>Austria</td>
-                        </tr>
-                        <tr>
-                            <td>Island Trading</td>
-                            <td>Helen Bennett</td>
-                            <td>UK</td>
-                        </tr>
-                        <tr>
-                            <td>Königlich Essen</td>
-                            <td>Philip Cramer</td>
-                            <td>Germany</td>
-                        </tr>
-                        <tr>
-                            <td>Laughing Bacchus Winecellars</td>
-                            <td>Yoshi Tannamuri</td>
-                            <td>Canada</td>
-                        </tr>
-                        <tr>
-                            <td>Magazzini Alimentari Riuniti</td>
-                            <td>Giovanni Rovelli</td>
-                            <td>Italy</td>
-                        </tr>
-                        <tr>
-                            <td>North/South</td>
-                            <td>Simon Crowther</td>
-                            <td>UK</td>
-                        </tr>
-                        <tr>
-                            <td>Paris spécialités</td>
-                            <td>Marie Bertrand</td>
-                            <td>France</td>
-                        </tr>
-                        <tr>
-                            <td>Paris spécialités</td>
-                            <td>Marie Bertrand</td>
-                            <td>France</td>
-                        </tr>
-                        <tr>
-                            <td>Paris spécialités</td>
-                            <td>Marie Bertrand</td>
-                            <td>France</td>
-                        </tr>
-
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Course Name</th>
+                                <th>Teacher Name</th>
+                                <th>Time</th>
+                                <th>Class Schedule</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {studnetsData.map((data, i) => (<tr key={i} >
+                                <td>{data?.name}</td>
+                                <td>{data?.Class}</td>
+                                <td>{data?.RollNumber}</td>
+                            </tr>))}
+                        </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
