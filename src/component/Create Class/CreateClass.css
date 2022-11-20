@@ -117,3 +117,16 @@ select {
   color: #fff;
   text-decoration: none;
 }
+.time-input{
+  display: flex;
+  width: 60%;
+  background-color: rgb(83, 82, 82);
+  color: white;
+  height: 50px;
+}
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root{
+  
+}
+.TimePickerEdit{
+  color: white;
+}

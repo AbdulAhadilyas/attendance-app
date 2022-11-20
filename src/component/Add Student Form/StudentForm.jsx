@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./StudentForm.css"
-import { collection, addDoc ,getFirestore,doc, setDoc ,set } from "firebase/firestore";
-
+import { query, collection, onSnapshot, orderBy, getFirestore, doc, setDoc, set } from "firebase/firestore";
 export default function StudentForm() {
     const [studnets, setStudents] = useState(
         {
@@ -13,6 +12,7 @@ export default function StudentForm() {
             Class: "",
         }
     )
+    const [stdImage, setStdImage] = useState(null)
 
     const db = getFirestore();
 
@@ -22,14 +22,14 @@ export default function StudentForm() {
         value = event.target.value;
         setStudents({ ...studnets, [name]: value })
     }
-    const saveData = async (event) =>  {
+    const saveData = async (event) => {
         event.preventDefault()
         console.log(studnets)
         try {
-            const docRef = await setDoc(doc(db, "Students" , studnets.RollNumber),studnets );
-            console.log("Document written with ID: ",docRef);
+            const docRef = await setDoc(doc(db, "Students", studnets.RollNumber), studnets);
+            console.log("Document written with ID: ", docRef);
         } catch (e) {
-            console.error("Error adding document: ", e);    
+            console.error("Error adding document: ", e);
         }
         setStudents({
             name: "",
@@ -38,8 +38,29 @@ export default function StudentForm() {
             contactNumber: "",
             CNICNumber: "",
             Class: "",
+            TeacherName: "",
         })
     }
+
+
+    const [teacherData, setTeacherData] = useState([])
+
+
+    useEffect(() => {
+        let unsubscribe = null;
+        const getRealtimeData = async () => {
+            const q = query(collection(db, "CreateClass"));
+            unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const posts = [];
+                querySnapshot.forEach((doc) => {
+                    posts.unshift({ id: doc.id, ...doc.data() });
+                });
+                setTeacherData([...posts, posts])
+            });
+        }
+        getRealtimeData();
+        console.log(teacherData)
+    }, [])
 
 
 
@@ -97,16 +118,34 @@ export default function StudentForm() {
                             </div>
                             <div className="input">
                                 <div className="input-lable">
-                                    <label htmlFor="name">Class</label>
+                                    <label htmlFor="name">Teacher Name</label>
                                 </div>
-                                <select name="Class" value={studnets.Class} onChange={getInput} >
-                                    <option value="Inzamama malik"> Inzamama malik</option>
-                                    <option value="Inzamama malik"> Inzamama malik</option>
-                                    <option value="Inzamama malik"> Inzamama malik</option>
-                                    <option value="Inzamama malik"> Inzamama malik</option>
+                                <select name="TeacherName" value={studnets.TeacherName} onChange={getInput} placeholder="Sort Data"  >
+                                    <option value="" disabled selected>Choose</option>
+                                    {teacherData.map((teacherName, i) =>
+                                        <option value={teacherName.id} key={i}>{teacherName.id}</option>)}
                                 </select>
                             </div>
-                            <div className="form-btn">
+                            <div className="input">
+                                <div className="input-lable">
+                                    <label htmlFor="name">Course</label>
+                                </div>
+                                <select name="Class" value={studnets.Class} onChange={getInput} placeholder="Sort Data"  >
+                                    <option value="" disabled selected>Choose Course</option>
+                                    {teacherData.map((teacherName, i) =>
+                                        <option value={teacherName.CourseName} key={i}>{teacherName.CourseName}</option>)}
+                                </select>
+                            </div>
+
+                            <div className="input">
+                                <div className="input-lable">
+                                    <label htmlFor="name">Student Image</label>
+                                </div>
+                                <div className="input-center">
+                                    <input type="file" name='CNICNumber' onChange={(e) => setStdImage(e.target.files[0])} class="custom-file-input" />
+                                </div>
+                            </div>
+                            <div className="form-btn">  
                                 <button>Add Student</button>
                             </div>
                         </form>

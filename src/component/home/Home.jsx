@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import "./Home.css"
 import { query, collection, onSnapshot, orderBy, getFirestore } from "firebase/firestore";
-export default function Home() {
 
+export default function Home() {
     const [studnetsData, setStudentsData] = useState([])
+
 
     const db = getFirestore();
 
@@ -20,9 +21,11 @@ export default function Home() {
             });
         }
         getRealtimeData();
-        
+
     }, [])
-   
+
+
+
     console.log("posts: ", studnetsData);
     return (
         <div>
@@ -31,25 +34,27 @@ export default function Home() {
                     <div className="dash-heading">
                         <h2>Students</h2>
                     </div>
-                    <table id="customers">
+
+
+                    <table>
                         <thead>
                             <tr>
-                                <th>Student Name</th>
-                                <th>Course Name</th>
-                                <th>Teacher Name</th>
-                                <th>Time</th>
-                                <th>Class Schedule</th>
-                                <th>Status</th>
+                                <th scope="col">Student</th>
+                                <th scope="col">Class</th>
+                                <th scope="col">Roll Number</th>
+                                <th scope="col">Teacher name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {studnetsData.map((data, i) => (<tr key={i} >
                                 <td>{data?.name}</td>
-                                <td>{data?.Class}</td>
+                                <td></td>
                                 <td>{data?.RollNumber}</td>
+                                <td>{data?.Class}</td>
                             </tr>))}
                         </tbody>
                     </table>
+
 
                 </div>
             </div>
